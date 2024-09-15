@@ -11,28 +11,72 @@ const watermelon = document.getElementById('watermelon');
 const papaya = document.getElementById('papaya');
 const lime = document.getElementById('lime');
 
-const fruits = document.querySelector('.fruits')
+const fruits = document.querySelectorAll('.fruits')
+const message = document.getElementById('message')
+
+function on() {
+    message.style.display = "block";
+}
+
+function off() {
+    message.style.display = "none"
+}
+
+
+
 //create event listener that will give a description of each fruit when the fruit is clicked
-fruits.addEventListener("click", function (e) {
-    console.log(mango);
-    console.log(apple);
+//edamam site
+//make each fruit iterable
+fruits.forEach(fruit => {
+    //add click event
+    fruit.addEventListener("click", (e) => {
+        const appKey = 'd3146669eb52ad43c03c768625e46c7c';
+        const appId = '9962b060';
+        const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(fruit.id)}`;
+        
+        fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error: " + response.statusText);
+            }
+            
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            on(message);
+            message.innerHTML = data.healthLabels;
+            return message;
+        })
+        .catch(error => console.error("Error: ", error));
+        })
 })
 
 
+const postUrl = 'https://api.edamam.com/api/nutrition-details?app_id=9962b060&app_key=d3146669eb52ad43c03c768625e46c7c';
+const requestData = {
+    title: "string",
+    summary: "string",
+    ingr: ["string"]
+};
 
-//fetch
-
-// REMOVED
-
-// fetch("https://wger.de/api/v2/workout/", {
-//     headers: {'x-api-key': apiKey}
-// })
-//     .then((response) => {
-//         if (!response.ok) {
-//             throw new Error("Error: ", response.statusText);
-//         }
-//         return response.json();
-//     })
-//     .then(data => console.log(data))
-//     .catch(error => console.error("Error: ", error))
-
+fetch(postUrl, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify(requestData)
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`)
+    }
+    return response.json();
+})
+.then((data) => {
+    console.log(data);
+})
+.catch((error) => {
+    console.error("Error: ", error);
+})
