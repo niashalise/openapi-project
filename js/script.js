@@ -14,6 +14,15 @@ const lime = document.getElementById('lime');
 const fruits = document.querySelectorAll('.fruits')
 const message = document.getElementById('message')
 
+function on() {
+    message.style.display = "block";
+}
+
+function off() {
+    message.style.display = "none"
+}
+
+
 
 //create event listener that will give a description of each fruit when the fruit is clicked
 //edamam site
@@ -35,6 +44,7 @@ fruits.forEach(fruit => {
         })
         .then(data => {
             console.log(data);
+            on(message);
             message.innerHTML = data.healthLabels;
             return message;
         })
