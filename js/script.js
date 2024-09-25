@@ -17,6 +17,8 @@ const healthLabels = document.querySelector('.health-labels');
 const closeBtn = document.querySelector('.close');
 const foodBtn = document.querySelector('.click-me');
 const foodContent = document.querySelector('.food-content')
+const more = document.getElementById('more-info');
+const pic = document.getElementById('food-pic');
 
 function on() {
     message.style.display = "block";
@@ -34,25 +36,31 @@ off();
 fruits.forEach(fruit => {
     //add click event
     fruit.addEventListener("click", (e) => {
-        const appKey = 'd3146669eb52ad43c03c768625e46c7c';
-        const appId = '9962b060';
-        const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(fruit.id)}`;
+        window.location.href = 'data.html'
+        // const appKey = 'd3146669eb52ad43c03c768625e46c7c';
+        // const appId = '9962b060';
+        // const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(fruit.id)}`;
         
-        fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Error: " + response.statusText);
-            }
+        // fetch(url)
+        // .then((response) => {
+        //     if (!response.ok) {
+        //         throw new Error("Error: " + response.statusText);
+        //     }
             
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
-            on();
-            healthLabels.innerText = data.healthLabels;
-            return message;
-        })
-        .catch(error => console.error("Error: ", error));
+        //     return response.json();
+        // })
+        // .then(data => {
+        //     console.log(data);
+        //     on();
+        //     healthLabels.innerText = data.healthLabels + `\n`;
+        //     const link = document.createElement('a');
+        //     link.href = 'data.html';
+        //     link.innerText = 'Click for more info';
+        //     link.target = '_blank';
+        //     healthLabels.appendChild(link);
+        //     return message;
+        // })
+        // .catch(error => console.error("Error: ", error));
     })
 })
 
@@ -61,25 +69,24 @@ closeBtn.addEventListener("click", (e) => {
 })
 
 foodBtn.addEventListener("click", (e) => {
-    fetch('https://foodish-api.com/api')
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Error: " + response.statusText);
-        }
+    window.location.href = 'content.html';
+    // fetch('https://foodish-api.com/api')
+    // .then((response) => {
+    //     if (!response.ok) {
+    //         throw new Error("Error: " + response.statusText);
+    //     }
 
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        const imageURL = data.image;
-        const imageElement = document.createElement('img');
-        imageElement.src = imageURL;
-        imageElement.alt = "Picture of a random dish";
+    //     return response.json();
+    // })
+    // .then(data => {
+    //     console.log(data);
+    //     const imageURL = data.image;
+    //     const imageElement = document.createElement('img');
+    //     imageElement.src = imageURL;
+    //     imageElement.alt = "Picture of a random dish";
 
-        foodContent.innerHTML = "";
-        foodContent.append(imageElement);
-    })
-    .catch(error => console.error("Error: ", error));
+    //     pic.innerHTML = "";
+    //     pic.append(imageElement);
+    // })
+    // .catch(error => console.error("Error: ", error));
 })
-
-// second fetch
