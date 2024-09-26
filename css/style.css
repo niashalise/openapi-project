@@ -86,8 +86,22 @@ img {
 p {
     font-family: "Lato", sans-serif;
     color: #294b14;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 #food-data {
-    width: 20%;
+    width: 80%;
+}
+
+/* For mobile */
+@media only screen and (max-width: 500px) {
+    .food-data {
+        font-size: 1em;
+    }
+
+    #food-data {
+        padding: 10px;
+        margin-left: 15px;
+    }
 }
